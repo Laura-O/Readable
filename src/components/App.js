@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PostList from './PostList';
+import PostComplete from './PostComplete';
+import {Route, Switch} from 'react-router-dom';
 import {Grid} from 'react-bootstrap';
 
 class App extends Component {
@@ -7,9 +9,12 @@ class App extends Component {
 
 	render() {
 		return (
-			<Grid>
-				<PostList />
-			</Grid>
+			<div>
+				<Switch>
+					<Route path="/" exact component={PostList} />
+					<Route path="/posts/:id" component={PostComplete} />
+				</Switch>
+			</div>
 		);
 	}
 }

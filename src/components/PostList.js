@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchPosts} from '../actions/index';
-import Post from './Post';
+import PostEntry from './PostEntry';
 
 class PostList extends Component {
 	componentWillMount() {
@@ -12,7 +12,8 @@ class PostList extends Component {
 		console.log(this.props);
 		return (
 			<div>
-				{this.props.posts.map(post => <Post key={post.id} post={post} />)}
+				{this.props.posts.map(post => <PostEntry key={post.id} post={post} />
+)}
 			</div>
 		);
 	}
