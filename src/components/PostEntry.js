@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button} from 'react-bootstrap';
 
 class PostEntry extends Component {
 	render() {
@@ -15,11 +16,14 @@ class PostEntry extends Component {
 					</p>
 					<p className="card-text">
 						<small className="text-muted">
-							Posted on {post.timestamp} by {post.author}
+							Posted on {post.timestamp} by {post.author} in {post.category}
 						</small>
-					</p>
-					<a href={'posts/' + post.id}>View</a>
+					</p>					
 				</div>
+        <div className="card-footer">
+          <Button>{post.voteScore}</Button>
+          <a href={'posts/' + post.id}>View</a>
+        </div>
 			</div>
 		);
 	}
