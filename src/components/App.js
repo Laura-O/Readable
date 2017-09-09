@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import PostList from './PostList';
+import {Grid} from 'react-bootstrap';
 
 class App extends Component {
-	componentDidMount() {		
-	}
+	componentDidMount() {}
 
 	render() {
 		return (
-			<PostList />
-		)
+			<Grid>
+				<PostList />
+			</Grid>
+		);
 	}
 }
 
