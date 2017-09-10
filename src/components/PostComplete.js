@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchPost} from '../actions/index';
 import PostEntry from './PostEntry';
+import Comments from './Comments';
 
 class PostComplete extends Component {
 	componentWillMount() {
-		console.log(this.props);
 		this.props.fetchPost(this.props.match.params.id);
 	}
 
@@ -18,6 +18,7 @@ class PostComplete extends Component {
 		return (
 			<div>
 				<PostEntry key={post.id} post={post} />
+        <Comments postId={post.id} />
 				<Link to="/">View all</Link>
 			</div>
 		);

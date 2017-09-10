@@ -9,11 +9,9 @@ class PostList extends Component {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<div>
-				{this.props.posts.map(post => <PostEntry key={post.id} post={post} />
-)}
+				{this.props.posts.map(post => <PostEntry key={post.id} post={post} />)}
 			</div>
 		);
 	}

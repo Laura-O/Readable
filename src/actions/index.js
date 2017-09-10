@@ -1,5 +1,6 @@
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
+export const FETCH_POST_COMMENTS = 'fetch_post_comments';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -22,6 +23,15 @@ export function fetchPost(id) {
 	};
 }
 
+export function fetchPostComments(id) {
+	const request = fetch(`${url}/posts/${id}/comments`, authHeader);
+	return dispatch => {
+		request
+			.then(res => res.json())
+			.then(data => dispatch(fetchPostCommentsSuccess(data)));
+	};
+}
+
 function fetchPostsSuccess(data) {
 	return {
 		type: FETCH_POSTS,
@@ -32,6 +42,13 @@ function fetchPostsSuccess(data) {
 function fetchPostSuccess(data) {
 	return {
 		type: FETCH_POST,
+		payload: data,
+	};
+}
+
+function fetchPostCommentsSuccess(data) {
+	return {
+		type: FETCH_POST_COMMENTS,
 		payload: data,
 	};
 }
