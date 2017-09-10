@@ -24,6 +24,7 @@ class CategoriesList extends Component {
 	render() {
 		return (
 			<div>
+				<h2>Categories</h2>
 				{this.renderCategories()}
 			</div>
 		);

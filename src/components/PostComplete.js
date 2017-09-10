@@ -12,13 +12,14 @@ class PostComplete extends Component {
 
 	render() {
 		const {post} = this.props;
+		console.log(post);
 		if (!post) {
 			return <div>Connecting</div>;
 		}
 		return (
 			<div>
 				<PostEntry key={post.id} post={post} />
-        <Comments postId={post.id} />
+				<Comments postId={post.id} />
 				<Link to="/">View all</Link>
 			</div>
 		);

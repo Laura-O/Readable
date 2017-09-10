@@ -4,6 +4,7 @@ import {Button} from 'react-bootstrap';
 class PostEntry extends Component {
 	render() {
 		const {post} = this.props;
+		console.log(post)
 		return (
 			<div className="card">
 				<div className="card-body">
