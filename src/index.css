@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.media-vote {
+  display: table-cell;
+  vertical-align: top;
+  padding-right: 10px;
+}
+.media-vote .btn-score {
+  border: none;
+  background-color: transparent;
+  font-size: 1.3em;
+  padding: 3px 12px;
+  line-height: 0;
+}
+
+.media-vote .vote-score {
+  text-align: center;
+  font-size: 1.2em;
+}
