@@ -1,14 +1,12 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
+import {reducer as formReducer} from 'redux-form';
 import PostsReducer from './reducer_posts';
-import CommentsReducer from './reducer_comments';
-import CategoriesReducter from './reducer_categories';
-import { reducer as formReducer } from 'redux-form';
+import CategoriesReducer from './reducer_categories';
 
 const rootReducer = combineReducers({
-    posts: PostsReducer,
-    comments: CommentsReducer,
-    categories: CategoriesReducter,
-    form: formReducer,
+	posts: PostsReducer,
+	categories: CategoriesReducer,
+	form: formReducer,
 });
 
 export default rootReducer;

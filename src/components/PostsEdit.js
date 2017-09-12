@@ -1,17 +1,29 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {
-	FormGroup,
-	FormControl,
-	ControlLabel,
-	HelpBlock,
-	Button,
-} from 'react-bootstrap';
+import {FormGroup, FormControl, Button, ControlLabel, HelpBlock} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {createPost} from '../actions';
+import {editPost, fetchPost} from '../actions/index';
 
-class PostCreate extends Component {
+class PostsEdit extends Component {
+	componentWillMount() {
+		this.props.fetchPost(this.props.match.params.id);
+	}
+
+	componentDidMount() {
+		this.handleInitialize();
+	}
+
+	handleInitialize() {
+		if (this.props.post) {
+			const initData = {
+				title: this.props.post.title,
+				body: this.props.post.body,
+			};
+			this.props.initialize(initData);
+		}
+	}
+
 	renderField(field) {
 		const {meta: {touched, error}} = field;
 		const className = touched && error ? 'error' : null;
@@ -21,7 +33,7 @@ class PostCreate extends Component {
 				<ControlLabel>
 					{field.label}
 				</ControlLabel>
-				<FormControl type={field.type} {...field.input} />
+				<FormControl type="text" {...field.input} />
 				<HelpBlock>
 					{touched ? error : ''}
 				</HelpBlock>
@@ -30,29 +42,30 @@ class PostCreate extends Component {
 	}
 
 	onSubmit(values) {
-		this.props.createPost(values, () => {
-			this.props.history.push('/');
+		const {editPost, match: {params: {id}}, history} = this.props;
+
+		editPost(id, values, () => {
+			history.push('/');
 		});
 	}
 
 	render() {
-		const {handleSubmit, reset} = this.props;
-
+		const {handleSubmit} = this.props;
+		console.log('post', this.props.post);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />
 				<Field label="Content" name="body" component={this.renderField} />
-				<Field label="Author" name="author" component={this.renderField} />
-				<Field label="Category" name="category" component={this.renderField} />
+				<ControlLabel>Author</ControlLabel>
+				<FormControl.Static>
+					{this.props.post ? this.props.post.author : ''}
+				</FormControl.Static>
 				<Button type="submit" bsStyle="primary">
-					Create Post
+					Update
 				</Button>
-				<Link to="/" className="btn btn-warning">
+				<Link to="/" className="btn btn-danger">
 					Cancel
 				</Link>
-				<Button type="button" bsStyle="danger" onClick={reset}>
-					Reset
-				</Button>
 			</form>
 		);
 	}
@@ -76,14 +89,10 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-	const {categories, posts} = state;
-	return {
-		categories,
-		posts,
-	};
+	return {post: state.posts.post};
 }
 
 export default reduxForm({
 	validate,
-	form: 'PostCreateForm',
-})(connect(mapStateToProps, {createPost})(PostCreate));
+	form: 'EditPostForm',
+})(connect(mapStateToProps, {editPost, fetchPost})(PostsEdit));

@@ -14,57 +14,39 @@ const authHeader = {headers: {Authorization: 'whatever-you-want'}};
 axios.defaults.headers.common['Authorization'] = authHeader;
 
 export function fetchPosts() {
-    return dispatch => {
-        axios.get(`${url}/posts`)
-            .then(res => dispatch(fetchPostsSuccess(res.data)));
-        
-    }
-}
-export function fetchPost(id) {        
-    return dispatch => {
-        axios.get(`${url}/posts/${id}`)
-            .then(res => dispatch(fetchPostSuccess(res.data)));
-        
-    }
-}
-
-export function fetchPostComments(id) {
-	const request = fetch(`${url}/posts/${id}/comments`, authHeader);
 	return dispatch => {
-		request
-			.then(res => res.json())
-			.then(data => dispatch(fetchPostCommentsSuccess(data)));
+		axios
+			.get(`${url}/posts`)
+			.then(res => dispatch(fetchPostsSuccess(res.data)));
 	};
 }
 
-export function fetchCategories() {
-	const request = fetch(`${url}/categories`, authHeader);
+export function fetchPost(id) {
 	return dispatch => {
-		request
-			.then(res => res.json())
-			.then(data => dispatch(fetchCategoriesSuccess(data)));
+		axios
+			.get(`${url}/posts/${id}`)
+			.then(res => dispatch(fetchPostSuccess(res.data)));
 	};
 }
 
 export function createPost(values, callback) {
-    const { title, body, author, category } = values;
+	const {title, body, author, category} = values;
 
-    const data = {
-        id: guid(),
-        timestamp: Date.now(),
-        title,
-        body,
-        author,
-        category
-    }
-        
-    return dispatch => {
-        axios.post(`${url}/posts`, data)
-            .then(res => {
-                callback();
-                dispatch(createPostSuccess(res.data));
-            });        
-    }
+	const data = {
+		id: guid(),
+		timestamp: Date.now(),
+		title,
+		body,
+		author,
+		category,
+	};
+
+	return dispatch => {
+		axios.post(`${url}/posts`, data).then(res => {
+			callback();
+			dispatch(createPostSuccess(res.data));
+		});
+	};
 }
 
 export function editPost(id, values, callback) {
@@ -85,6 +67,22 @@ export function deletePost(id, callback) {
 	};
 }
 
+export function fetchCategories() {
+	return dispatch => {
+		axios
+			.get(`${url}/categories`)
+			.then(res => dispatch(fetchCategoriesSuccess(res.data)));
+	};
+}
+
+export function fetchPostComments(postId) {
+	return dispatch => {
+		axios.get(`${url}/posts/${postId}/comments`).then(res => {
+			dispatch({type: FETCH_POST_COMMENTS, payload: res.data});
+		});
+	};
+}
+
 function fetchPostsSuccess(data) {
 	return {
 		type: FETCH_POSTS,
@@ -99,12 +97,12 @@ function fetchPostSuccess(data) {
 	};
 }
 
-function fetchPostCommentsSuccess(data) {
-	return {
-		type: FETCH_POST_COMMENTS,
-		payload: data,
-	};
-}
+// function fetchPostCommentsSuccess(data) {
+// 	return {
+// 		type: FETCH_POST_COMMENTS,
+// 		payload: data,
+// 	};
+// }
 
 function fetchCategoriesSuccess(data) {
 	return {
@@ -135,11 +133,21 @@ function deletePostSuccess(data) {
 }
 
 function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+	}
+	return (
+		s4() +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		'-' +
+		s4() +
+		s4() +
+		s4()
+	);
 }
