@@ -19,7 +19,7 @@ export function fetchPosts() {
 	return dispatch => {
 		axios
 			.get(`${url}/posts`)
-			.then(res => dispatch(fetchPostsSuccess(res.data)));
+			.then(res => dispatch({type: FETCH_POSTS, payload: res.data}));
 	};
 }
 
@@ -27,7 +27,7 @@ export function fetchPost(id) {
 	return dispatch => {
 		axios
 			.get(`${url}/posts/${id}`)
-			.then(res => dispatch(fetchPostSuccess(res.data)));
+			.then(res => dispatch({type: FETCH_POST, payload: res.data}));
 	};
 }
 
@@ -35,7 +35,7 @@ export function fetchCategoryPosts(category) {
 	return dispatch => {
 		axios
 			.get(`${url}/${category}/posts`)
-			.then(res => dispatch(fetchPostsSuccess(res.data)));
+			.then(res => dispatch({type: FETCH_POSTS, payload: res.data}));
 	};
 }
 
@@ -54,7 +54,7 @@ export function createPost(values, callback) {
 	return dispatch => {
 		axios.post(`${url}/posts`, data).then(res => {
 			callback();
-			dispatch(createPostSuccess(res.data));
+			dispatch({type: CREATE_POST, payload: res.data});
 		});
 	};
 }
@@ -63,7 +63,7 @@ export function editPost(id, values, callback) {
 	return dispatch => {
 		axios.put(`${url}/posts/${id}`, values).then(res => {
 			callback();
-			dispatch(editPostSuccess(res.data));
+			dispatch({type: EDIT_POST, payload: res.data});
 		});
 	};
 }
@@ -72,23 +72,24 @@ export function deletePost(id, callback) {
 	return dispatch => {
 		axios.delete(`${url}/posts/${id}`).then(res => {
 			callback();
-			dispatch(deletePostSuccess(id));
+			dispatch({type: DELETE_POST, payload: res.id});
 		});
 	};
 }
 
 export function votePost(id, vote) {
-    return dispatch => {
-        axios.post(`${url}/posts/${id}`, { option: vote })
-            .then(res => dispatch({ type: VOTE_POST, payload: res.data }))
-    }
+	return dispatch => {
+		axios
+			.post(`${url}/posts/${id}`, {option: vote})
+			.then(res => dispatch({type: VOTE_POST, payload: res.data}));
+	};
 }
 
 export function fetchCategories() {
 	return dispatch => {
 		axios
 			.get(`${url}/categories`)
-			.then(res => dispatch(fetchCategoriesSuccess(res.data)));
+			.then(res => dispatch({type: FETCH_CATEGORIES, payload: res.data}));
 	};
 }
 
@@ -97,48 +98,6 @@ export function fetchPostComments(postId) {
 		axios
 			.get(`${url}/posts/${postId}/comments`)
 			.then(res => dispatch({type: FETCH_POST_COMMENTS, payload: res.data}));
-	};
-}
-
-function fetchPostsSuccess(data) {
-	return {
-		type: FETCH_POSTS,
-		payload: data,
-	};
-}
-
-function fetchPostSuccess(data) {
-	return {
-		type: FETCH_POST,
-		payload: data,
-	};
-}
-
-function fetchCategoriesSuccess(data) {
-	return {
-		type: FETCH_CATEGORIES,
-		payload: data,
-	};
-}
-
-function createPostSuccess(data) {
-	return {
-		type: CREATE_POST,
-		payload: data,
-	};
-}
-
-function editPostSuccess(data) {
-	return {
-		type: EDIT_POST,
-		payload: data,
-	};
-}
-
-function deletePostSuccess(data) {
-	return {
-		type: DELETE_POST,
-		payload: data,
 	};
 }
 
