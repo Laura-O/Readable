@@ -6,6 +6,7 @@ import PostsDetail from './PostsDetail';
 import PostsCreate from './PostsCreate';
 import PostsEdit from './PostsEdit';
 import NavbarTop from './NavbarTop';
+import CommentsCreate from './CommentsCreate';
 
 class App extends Component {
 	render() {
@@ -19,6 +20,7 @@ class App extends Component {
 						<Route exact path="/posts/new" component={PostsCreate} />
 						<Route exact path="/posts/edit/:id" children={props => <PostsEdit {...props} />}/>
 						<Route exact path="/posts/:id" component={PostsDetail} />
+						<Route path="/:category/:id/comments/new" component={CommentsCreate} />
 					</Switch>
 				</Grid>
 			</div>

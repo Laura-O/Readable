@@ -9,6 +9,7 @@ export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
 export const VOTE_POST = 'vote_post';
+export const CREATE_COMMENT = 'create_comment';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -98,6 +99,25 @@ export function fetchPostComments(postId) {
 		axios
 			.get(`${url}/posts/${postId}/comments`)
 			.then(res => dispatch({type: FETCH_POST_COMMENTS, payload: res.data}));
+	};
+}
+
+export function createComment(values, parentId, callback) {
+	const {body, author} = values;
+
+	const data = {
+		id: guid(),
+		parentId,
+		timestamp: Date.now(),
+		body,
+		author,
+	};
+
+	return dispatch => {
+		axios.post(`${url}/comments`, data).then(res => {
+			callback();
+			dispatch({type: CREATE_COMMENT, payload: res.data});
+		});
 	};
 }
 
