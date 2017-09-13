@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
-import {fetchPosts} from '../actions/index';
+import {fetchPosts, votePost} from '../actions/index';
 
 class PostsList extends Component {
 	componentWillMount() {
@@ -10,12 +10,16 @@ class PostsList extends Component {
 	}
 
 	renderPosts() {
+		const {votePost, fetchPosts} = this.props;
 		return this.props.posts.map(post => {
 			return (
 				<div className="media" key={post.id}>
 					<div className="media-vote">
 						<span>
-							<Button className="btn btn-score">
+							<Button
+								onClick={() => {votePost(post.id, 'upVote'); fetchPosts()}}
+								className="btn btn-score"
+							>
 								<span
 									className="glyphicon glyphicon-triangle-top"
 									aria-hidden="true"
@@ -24,7 +28,12 @@ class PostsList extends Component {
 							<div className="vote-score">
 								{post.voteScore}
 							</div>
-							<Button className="btn btn-score">
+							<Button
+								onClick={() => {
+									votePost(post.id, 'downVote'); fetchPosts();
+								}}
+								className="btn btn-score"
+							>
 								<span
 									className="glyphicon glyphicon-triangle-bottom"
 									aria-hidden="true"
@@ -64,7 +73,6 @@ class PostsList extends Component {
 	}
 
 	render() {
-		console.log(this.props.posts);
 		return (
 			<div>
 				{this.renderPosts()}
@@ -77,4 +85,4 @@ function mapStateToProps(state) {
 	return {posts: state.posts.all.filter(post => !post.deleted)};
 }
 
-export default connect(mapStateToProps, {fetchPosts})(PostsList);
+export default connect(mapStateToProps, {fetchPosts, votePost})(PostsList);

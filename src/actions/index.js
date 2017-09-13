@@ -7,6 +7,7 @@ export const FETCH_CATEGORIES = 'fetch_categories';
 export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
+export const VOTE_POST = 'vote_post';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -67,6 +68,13 @@ export function deletePost(id, callback) {
 	};
 }
 
+export function votePost(id, vote) {
+    return dispatch => {
+        axios.post(`${url}/posts/${id}`, { option: vote })
+            .then(res => dispatch({ type: VOTE_POST, payload: res.data }))
+    }
+}
+
 export function fetchCategories() {
 	return dispatch => {
 		axios
@@ -76,10 +84,11 @@ export function fetchCategories() {
 }
 
 export function fetchPostComments(postId) {
-    return dispatch => {
-        axios.get(`${url}/posts/${postId}/comments`)
-            .then(res => dispatch({ type: FETCH_POST_COMMENTS, payload: res.data }))
-    }
+	return dispatch => {
+		axios
+			.get(`${url}/posts/${postId}/comments`)
+			.then(res => dispatch({type: FETCH_POST_COMMENTS, payload: res.data}));
+	};
 }
 
 function fetchPostsSuccess(data) {
@@ -113,6 +122,13 @@ function createPostSuccess(data) {
 function editPostSuccess(data) {
 	return {
 		type: EDIT_POST,
+		payload: data,
+	};
+}
+
+function votePostSuccess(data) {
+	return {
+		type: VOTE_POST,
 		payload: data,
 	};
 }
