@@ -14,7 +14,8 @@ class App extends Component {
 				<NavbarTop />
 				<Grid>
 					<Switch>
-						<Route exact path="/" exact component={PostsMain} />
+						<Route exact path="/" component={PostsMain} />
+						<Route path="/:category" exact component={props => <PostsMain {...props} />} />
 						<Route exact path="/posts/new" component={PostsCreate} />
 						<Route exact path="/posts/edit/:id" children={props => <PostsEdit {...props} />}/>
 						<Route exact path="/posts/:id" component={PostsDetail} />

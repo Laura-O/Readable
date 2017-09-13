@@ -15,7 +15,6 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case FETCH_POSTS:
-			console.log('$$ fetch_posts', action.payload.data);
 			return {
 				...state,
 				all: action.payload,
@@ -31,11 +30,10 @@ export default function(state = INITIAL_STATE, action) {
 				post: action.payload,
 			};
 		case VOTE_POST:
-		console.log()
 			return {
 				...state,
 				[action.payload.id]: action.payload,
-			};			
+			};
 		case DELETE_POST:
 			return _.omit(state, action.payload);
 		default:

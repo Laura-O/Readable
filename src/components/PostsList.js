@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
-import {fetchPosts, votePost} from '../actions/index';
+import {fetchPosts, fetchCategoryPosts, votePost} from '../actions/index';
 
 class PostsList extends Component {
 	componentWillMount() {
-		this.props.fetchPosts();
+		if (this.props.match.params.category) {
+			this.props.fetchCategoryPosts(this.props.match.params.category);
+		} else {
+			this.props.fetchPosts();
+		}
 	}
 
 	renderPosts() {
@@ -17,7 +21,10 @@ class PostsList extends Component {
 					<div className="media-vote">
 						<span>
 							<Button
-								onClick={() => {votePost(post.id, 'upVote'); fetchPosts()}}
+								onClick={() => {
+									votePost(post.id, 'upVote');
+									fetchPosts();
+								}}
 								className="btn btn-score"
 							>
 								<span
@@ -30,7 +37,8 @@ class PostsList extends Component {
 							</div>
 							<Button
 								onClick={() => {
-									votePost(post.id, 'downVote'); fetchPosts();
+									votePost(post.id, 'downVote');
+									fetchPosts();
 								}}
 								className="btn btn-score"
 							>
@@ -85,4 +93,8 @@ function mapStateToProps(state) {
 	return {posts: state.posts.all.filter(post => !post.deleted)};
 }
 
-export default connect(mapStateToProps, {fetchPosts, votePost})(PostsList);
+export default connect(mapStateToProps, {
+	fetchPosts,
+	fetchCategoryPosts,
+	votePost,
+})(PostsList);

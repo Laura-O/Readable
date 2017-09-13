@@ -8,8 +8,8 @@ class PostsMain extends Component {
 	render() {
 		return (
 			<Row>
-				<Col md={8}>
-					<PostsList />
+				<Col md={8}>					
+					<PostsList {...this.props} />
 				</Col>
 				<Col md={2} offset={2}>
 					<CategoriesList />

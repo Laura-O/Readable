@@ -4,6 +4,7 @@ export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const FETCH_POST_COMMENTS = 'fetch_post_comments';
 export const FETCH_CATEGORIES = 'fetch_categories';
+export const FETCH_CATEGORY_POST = 'fetch_category_posts';
 export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
@@ -27,6 +28,14 @@ export function fetchPost(id) {
 		axios
 			.get(`${url}/posts/${id}`)
 			.then(res => dispatch(fetchPostSuccess(res.data)));
+	};
+}
+
+export function fetchCategoryPosts(category) {
+	return dispatch => {
+		axios
+			.get(`${url}/${category}/posts`)
+			.then(res => dispatch(fetchPostsSuccess(res.data)));
 	};
 }
 
@@ -122,13 +131,6 @@ function createPostSuccess(data) {
 function editPostSuccess(data) {
 	return {
 		type: EDIT_POST,
-		payload: data,
-	};
-}
-
-function votePostSuccess(data) {
-	return {
-		type: VOTE_POST,
 		payload: data,
 	};
 }
