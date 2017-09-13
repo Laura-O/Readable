@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import {fetchPost, deletePost} from '../actions';
+import Comments from './Comments';
 
 class PostsDetail extends Component {
 	componentWillMount() {
@@ -33,15 +34,16 @@ class PostsDetail extends Component {
 					{post.body}
 				</p>
 				<Link to="/">
-					<Button>Back</Button>
+					<Button bsSize="xsmall">Back</Button>
 				</Link>
 				<Link to={`/posts/edit/${post.id}`}>
-					<Button bsStyle="warning">Edit Post</Button>
+					<Button bsSize="xsmall" bsStyle="warning">Edit Post</Button>
 				</Link>
-				<Button bsStyle="danger" onClick={this.deleteButtonPress.bind(this)}>
+				<Button bsSize="xsmall" bsStyle="danger" onClick={this.deleteButtonPress.bind(this)}>
 					Delete Post
 				</Button>
-			</div>			
+			</div>
+		<Comments postId={post.id}/>
 			</div>
 		);
 	}

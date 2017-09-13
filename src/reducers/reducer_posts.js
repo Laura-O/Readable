@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {FETCH_POSTS, FETCH_POST, EDIT_POST, DELETE_POST} from '../actions';
+import {FETCH_POSTS, FETCH_POST, EDIT_POST, DELETE_POST} from '../actions/index';
 
 const INITIAL_STATE = {
 	all: [],
@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case FETCH_POSTS:
+			console.log('$$ fetch_posts', action.payload.data);
 			return {
 				...state,
 				all: action.payload,

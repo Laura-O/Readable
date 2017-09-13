@@ -12,7 +12,7 @@ class PostsList extends Component {
 	renderPosts() {
 		return this.props.posts.map(post => {
 			return (
-				<div className="media">
+				<div className="media" key={post.id}>
 					<div className="media-vote">
 						<span>
 							<Button className="btn btn-score">

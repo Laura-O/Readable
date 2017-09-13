@@ -14,13 +14,10 @@ class App extends Component {
 				<NavbarTop />
 				<Grid>
 					<Switch>
-						<Route path="/" exact component={PostsMain} />
-						<Route path="/posts/new" component={PostsCreate} />
-						<Route
-							path="/posts/edit/:id"
-							children={props => <PostsEdit {...props} />}
-						/>
-						<Route path="/posts/:id" component={PostsDetail} />
+						<Route exact path="/" exact component={PostsMain} />
+						<Route exact path="/posts/new" component={PostsCreate} />
+						<Route exact path="/posts/edit/:id" children={props => <PostsEdit {...props} />}/>
+						<Route exact path="/posts/:id" component={PostsDetail} />
 					</Switch>
 				</Grid>
 			</div>

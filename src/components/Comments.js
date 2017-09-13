@@ -9,27 +9,34 @@ class Comments extends Component {
 		fetchPostComments(postId);
 	}
 
-	render() {
+	renderComments() {
 		const {comments} = this.props;
+		if (comments) {
+			return _.map(comments, comment => {				
+				return (
+					<div className="card" key={comment.id}>
+						<div className="card-block">
+							<div className="card-text">
+								{comment.body}
+							</div>
+							<a href="" className="card-link">
+								Edit
+							</a>
+							<a href="" className="card-link">
+								Delete
+							</a>
+						</div>
+					</div>
+				);
+			});
+		}
+		return <div>Loading</div>;
+	}
+
+	render() {
 		return (
 			<div>
-				{comments.map(comment => {
-					return (
-						<div className="card" key={comment.id}>
-							<div className="card-block">
-								<div className="card-text">
-									{comment.body}
-								</div>
-								<a href="#" className="card-link">
-									Edit
-								</a>
-								<a href="#" className="card-link">
-									Delete
-								</a>
-							</div>
-						</div>
-					);
-				})}
+				{this.renderComments()}
 			</div>
 		);
 	}

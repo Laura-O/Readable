@@ -76,11 +76,10 @@ export function fetchCategories() {
 }
 
 export function fetchPostComments(postId) {
-	return dispatch => {
-		axios.get(`${url}/posts/${postId}/comments`).then(res => {
-			dispatch({type: FETCH_POST_COMMENTS, payload: res.data});
-		});
-	};
+    return dispatch => {
+        axios.get(`${url}/posts/${postId}/comments`)
+            .then(res => dispatch({ type: FETCH_POST_COMMENTS, payload: res.data }))
+    }
 }
 
 function fetchPostsSuccess(data) {
@@ -96,13 +95,6 @@ function fetchPostSuccess(data) {
 		payload: data,
 	};
 }
-
-// function fetchPostCommentsSuccess(data) {
-// 	return {
-// 		type: FETCH_POST_COMMENTS,
-// 		payload: data,
-// 	};
-// }
 
 function fetchCategoriesSuccess(data) {
 	return {
