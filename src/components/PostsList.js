@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import {fetchPosts, fetchCategoryPosts, votePost} from '../actions/index';
+import formatTimestamp from '../utils/formatTimestamp';
 
 class PostsList extends Component {
 	componentWillMount() {
@@ -61,7 +62,7 @@ class PostsList extends Component {
 								{post.category}
 							</Button>
 							<span>
-								Posted on {post.timestamp} by {post.author} in {post.category}
+								Posted on {formatTimestamp(post.timestamp)} by {post.author} in {post.category}
 							</span>
 							<span>
 								<a href={'posts/' + post.id}>View</a>
