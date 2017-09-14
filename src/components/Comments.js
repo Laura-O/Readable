@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchPostComments} from '../actions/index';
+import {Button} from 'react-bootstrap';
+import {fetchPostComments, deleteComment} from '../actions/index';
 
 class Comments extends Component {
 	componentWillMount() {
@@ -9,10 +10,19 @@ class Comments extends Component {
 		fetchPostComments(postId);
 	}
 
+	deleteButton(id) {
+		const {deleteComment, fetchPostComments, postId} = this.props;
+
+		deleteComment(id, () => {
+			fetchPostComments(postId);
+		});
+	}
+
 	renderComments() {
 		const {comments} = this.props;
 		if (comments) {
-			return _.map(comments, comment => {				
+			return _.map(comments, comment => {
+				console.log(comment);
 				return (
 					<div className="card" key={comment.id}>
 						<div className="card-block">
@@ -22,9 +32,9 @@ class Comments extends Component {
 							<a href="" className="card-link">
 								Edit
 							</a>
-							<a href="" className="card-link">
+							<Button onClick={() => this.deleteButton(comment.id)}>
 								Delete
-							</a>
+							</Button>
 						</div>
 					</div>
 				);
@@ -49,4 +59,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
 	fetchPostComments,
+	deleteComment,
 })(Comments);

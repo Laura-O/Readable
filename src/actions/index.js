@@ -10,6 +10,7 @@ export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
 export const VOTE_POST = 'vote_post';
 export const CREATE_COMMENT = 'create_comment';
+export const DELETE_COMMENT = 'delete_comment';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -117,6 +118,15 @@ export function createComment(values, parentId, callback) {
 		axios.post(`${url}/comments`, data).then(res => {
 			callback();
 			dispatch({type: CREATE_COMMENT, payload: res.data});
+		});
+	};
+}
+
+export function deleteComment(id, callback) {
+	return dispatch => {
+		axios.delete(`${url}/comments/${id}`).then(res => {
+			callback();
+			dispatch({type: DELETE_COMMENT, payload: res.id});
 		});
 	};
 }
