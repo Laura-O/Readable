@@ -68,12 +68,7 @@ class PostsList extends Component {
 								<a href={'posts/' + post.id}>View</a>
 							</span>
 						</p>
-						<p>
-							<Link to={`/posts/edit/${post.id}`}>
-								<Button bsStyle="warning" bsSize="xsmall">
-									Edit Post
-								</Button>
-							</Link>
+						<p>							
 						</p>
 					</div>
 				</div>
