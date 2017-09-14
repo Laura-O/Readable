@@ -21,23 +21,3 @@ body {
   text-align: center;
   font-size: 1.2em;
 }
-
-.voting {
-  float: left;
-}
-
-.postButtons {
-  float: right;
-}
-
-.back {
-  float: right;
-}
-
-div.vote-score {
-  min-width: 2em;
-}
-
-div.postcard {
-  padding: 5px 0 5px 0;
-}

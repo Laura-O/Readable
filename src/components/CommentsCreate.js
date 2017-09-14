@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {FormGroup, FormControl, Button} from 'react-bootstrap';
+import {Form, FormGroup, Button} from 'reactstrap';
 import {connect} from 'react-redux';
 import {createComment} from '../actions';
 
@@ -11,32 +11,30 @@ class CommentsCreate extends Component {
 		const className = touched && error ? 'error' : null;
 
 		return (
-			<FormGroup validationState={className}>
-				<label>
-					{field.label}
-				</label>
-				<FormControl type="text" {...field.input} />
-				<div className="text-help">
-					{touched ? error : ''}
+			<Form>
+				<div className={'form-group ' + className}>
+					<label>{field.label}</label>
+					<input type="text" {...field.input} />
+					<div className="form-control-feedback">{touched ? error : ''}</div>
 				</div>
-			</FormGroup>
+			</Form>
 		);
 	}
 
 	onSubmit(values) {
-		const {category, id} = this.props.match.params;
+		const id = this.props.match.params.id;
 		this.props.createComment(values, id, () => {
 			this.props.history.push(`/posts/${id}`);
 		});
 	}
 
 	render() {
-		const {handleSubmit, match: {params: {category, id}}} = this.props;
+		const {handleSubmit, match: {params: {id}}} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Comment" name="body" component={this.renderField} />
 				<Field label="Author" name="author" component={this.renderField} />
-				<Button type="submit" bsStyle="primary" bsSize="sm">
+				<Button type="submit" size="sm">
 					Submit
 				</Button>
 				<Link to={`/posts/${id}`} className="btn btn-danger btn-sm">

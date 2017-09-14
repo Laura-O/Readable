@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {FETCH_POST_COMMENTS, CREATE_COMMENT, DELETE_COMMENT} from '../actions';
+import {FETCH_POST_COMMENTS, DELETE_COMMENT} from '../actions';
 
 const INITIAL_STATE = {};
 

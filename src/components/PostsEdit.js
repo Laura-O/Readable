@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {FormGroup, FormControl, Button, ControlLabel, HelpBlock} from 'react-bootstrap';
+import {Form, FormGroup, Button} from 'reactstrap';
 import {connect} from 'react-redux';
 import {editPost, fetchPost} from '../actions/index';
 
@@ -29,15 +29,13 @@ class PostsEdit extends Component {
 		const className = touched && error ? 'error' : null;
 
 		return (
-			<FormGroup validationState={className}>
-				<ControlLabel>
-					{field.label}
-				</ControlLabel>
-				<FormControl type="text" {...field.input} />
-				<HelpBlock>
-					{touched ? error : ''}
-				</HelpBlock>
-			</FormGroup>
+			<Form>
+				<div className={"form-group " + className}>
+					<label>{field.label}</label>
+					<input type="text" {...field.input} />
+					<div className="form-control-feedback">{touched ? error : ''}</div>
+				</div>
+			</Form>
 		);
 	}
 
@@ -55,11 +53,7 @@ class PostsEdit extends Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />
-				<Field label="Content" name="body" component={this.renderField} />
-				<ControlLabel>Author</ControlLabel>
-				<FormControl.Static>
-					{this.props.post ? this.props.post.author : ''}
-				</FormControl.Static>
+				<Field label="Content" name="body" component={this.renderField} />				
 				<Button type="submit" bsStyle="primary">
 					Update
 				</Button>
