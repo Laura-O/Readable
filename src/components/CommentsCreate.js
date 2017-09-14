@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {Form, FormGroup, Button} from 'reactstrap';
+import {Form, Button} from 'reactstrap';
 import {connect} from 'react-redux';
 import {createComment} from '../actions';
 

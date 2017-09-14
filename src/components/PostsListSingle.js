@@ -8,11 +8,27 @@ import {
 	CardTitle,
 	CardFooter,
 } from 'reactstrap';
-import {fetchPosts, fetchCategoryPosts, votePost} from '../actions/index';
+import {
+	fetchPosts,
+	fetchCategoryPosts,
+	votePost,
+	fetchCommentsCount,
+} from '../actions/index';
 import formatTimestamp from '../utils/formatTimestamp';
 import Fontawesome from 'react-fontawesome';
 
 class PostsListSingle extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {count: 0};
+	}
+
+	componentWillMount() {
+		this.props.fetchCommentsCount(this.props.post.id, data => {
+			this.setState({count: data.length});
+		});
+	}
+
 	render() {
 		const {post} = this.props;
 		return (
@@ -53,6 +69,7 @@ class PostsListSingle extends Component {
 						<Button size="sm">{post.category}</Button>
 						<span>
 							Posted on {formatTimestamp(post.timestamp)} by {post.author}
+							{this.state.count ? this.state.count : 0} comments
 						</span>
 					</CardFooter>
 				</Card>
@@ -60,4 +77,12 @@ class PostsListSingle extends Component {
 		);
 	}
 }
-export default PostsListSingle;
+
+function mapStateToProps(state, ownProps) {
+	const {count} = state.comments;
+	return {count};
+}
+
+export default connect(mapStateToProps, {
+	fetchCommentsCount,
+})(PostsListSingle);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
@@ -11,6 +12,7 @@ export const DELETE_POST = 'delete_post';
 export const VOTE_POST = 'vote_post';
 export const CREATE_COMMENT = 'create_comment';
 export const DELETE_COMMENT = 'delete_comment';
+export const FETCH_COMMENTS_COUNT = 'fetch_comments_count';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -122,6 +124,18 @@ export function createComment(values, parentId, callback) {
 	};
 }
 
+export function fetchCommentsCount(postId, callback) {
+	return dispatch => {
+		axios.get(`${url}/posts/${postId}/comments`).then(res => {
+			const comments = _.filter(res.data, comment => !comment.deleted);
+			const length = Object.keys(comments).length;
+			const count = {postId, length};
+			callback(count);
+			dispatch({type: FETCH_COMMENTS_COUNT, payload: count});
+		});
+	};
+}
+
 export function deleteComment(id, callback) {
 	return dispatch => {
 		axios.delete(`${url}/comments/${id}`).then(res => {
@@ -133,7 +147,9 @@ export function deleteComment(id, callback) {
 
 function guid() {
 	function s4() {
-		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
 	}
 	return (
 		s4() +
