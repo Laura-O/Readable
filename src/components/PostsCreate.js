@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {Button, HelpBlock, FormGroup, FormControl} from 'react-bootstrap';
+import {Button, Form, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import {createPost, fetchCategories} from '../actions';
 
@@ -12,18 +12,16 @@ class PostsCreate extends Component {
 
 	renderField(field) {
 		const {meta: {touched, error}} = field;
-		const className = touched && error ? 'error' : null;
+		const className = touched && error ? 'has-danger' : null;
 
 		return (
-			<FormGroup validationState={className}>
-				<label>
-					{field.label}
-				</label>
-				<FormControl type="text" {...field.input} />
-				<HelpBlock>
-					{touched ? error : ''}
-				</HelpBlock>
-			</FormGroup>
+			<Form>
+				<div className={'form-group ' + className}>
+					<label>{field.label}</label>
+					<input type="text" {...field.input} />
+					<div className="form-control-feedback">{touched ? error : ''}</div>
+				</div>
+			</Form>
 		);
 	}
 
@@ -41,13 +39,13 @@ class PostsCreate extends Component {
 				<Field label="Title" name="title" component={this.renderField} />
 				<Field label="Content" name="body" component={this.renderField} />
 				<Field label="Author" name="author" component={this.renderField} />
-				<Field name="category" component="select">
-					{categories.map(category =>
+				<Input type="select" name="category" component="select">
+					{categories.map(category => (
 						<option key={category.name} value={category.name}>
 							{category.name}
 						</option>
-					)}
-				</Field>
+					))}
+				</Input>
 				<br />
 				<Button type="submit" bsStyle="primary">
 					Submit

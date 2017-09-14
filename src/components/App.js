@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import {Grid} from 'react-bootstrap';
 import PostsMain from './PostsMain';
 import PostsDetail from './PostsDetail';
 import PostsCreate from './PostsCreate';
@@ -13,7 +12,7 @@ class App extends Component {
 		return (
 			<div>
 				<NavbarTop />
-				<Grid>
+				<div className="container">
 					<Switch>
 						<Route exact path="/" component={PostsMain} />
 						<Route path="/:category" exact component={props => <PostsMain {...props} />} />
@@ -22,7 +21,7 @@ class App extends Component {
 						<Route exact path="/posts/:id" component={PostsDetail} />
 						<Route path="/:category/:id/comments/new" component={CommentsCreate} />
 					</Switch>
-				</Grid>
+				</div>
 			</div>
 		);
 	}

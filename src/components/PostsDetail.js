@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {
+	Button,
+	ButtonGroup,
+	Card,
+	CardFooter,
+	CardText,
+	CardBlock,
+	CardTitle,
+} from 'reactstrap';
 import {fetchPost, deletePost} from '../actions';
 import Comments from './Comments';
 
@@ -23,31 +31,38 @@ class PostsDetail extends Component {
 		}
 		return (
 			<div>
-				<div className="media">
-					<h2>
-						{post.title}
-					</h2>
-					<Button bsSize="xsmall">
-						{post.category}
-					</Button>
-					<p>
-						{post.body}
-					</p>
-					<Link to="/">
-						<Button bsSize="xsmall">Back</Button>
-					</Link>
-					<Link to={`/posts/edit/${post.id}`}>
-						<Button bsSize="xsmall" bsStyle="warning">
-							Edit Post
+				<Card>
+					<CardBlock>
+						<CardTitle>
+							{post.title}
+						</CardTitle>
+						<CardText>
+							{post.body}
+
+							<ButtonGroup className="postButtons">
+								<Link to={`/posts/edit/${post.id}`}>
+									<Button size="sm" color="warning">
+										Edit Post
+									</Button>
+								</Link>
+								<Button
+									size="sm"
+									color="danger"
+									onClick={this.deleteButtonPress.bind(this)}
+								>
+									Delete Post
+								</Button>
+							</ButtonGroup>
+						</CardText>
+					</CardBlock>
+					<CardFooter className="d-flex justify-content-between">
+						<Button size="sm">
+							{post.category}
 						</Button>
-					</Link>
-					<Button
-						bsSize="xsmall"
-						bsStyle="danger"
-						onClick={this.deleteButtonPress.bind(this)}
-					>
-						Delete Post
-					</Button>
+						<span>Posted by {post.author}</span>
+					</CardFooter>
+				</Card>
+				<div>
 					<Link to={`/${post.category}/${post.id}/comments/new`}>
 						<Button bsSize="xsmall" bsStyle="primary">
 							Add comment
@@ -55,6 +70,11 @@ class PostsDetail extends Component {
 					</Link>
 				</div>
 				<Comments postId={post.id} />
+				<div className="back">
+					<Link to="/">
+						<Button color="link">Back</Button>
+					</Link>
+				</div>
 			</div>
 		);
 	}

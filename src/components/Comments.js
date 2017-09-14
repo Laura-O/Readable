@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button} from 'react-bootstrap';
+import {Button, Card} from 'reactstrap';
 import {fetchPostComments, deleteComment} from '../actions/index';
 
 class Comments extends Component {
@@ -24,7 +24,7 @@ class Comments extends Component {
 			return _.map(comments, comment => {
 				console.log(comment);
 				return (
-					<div className="card" key={comment.id}>
+					<Card key={comment.id}>
 						<div className="card-block">
 							<div className="card-text">
 								{comment.body}
@@ -36,7 +36,7 @@ class Comments extends Component {
 								Delete
 							</Button>
 						</div>
-					</div>
+					</Card>
 				);
 			});
 		}

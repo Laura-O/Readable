@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {
+	Button,
+	Card,
+	CardText,
+	CardBlock,
+	CardTitle,
+	CardFooter,
+} from 'reactstrap';
 import {fetchPosts, fetchCategoryPosts, votePost} from '../actions/index';
 import formatTimestamp from '../utils/formatTimestamp';
+import Fontawesome from 'react-fontawesome';
 
 class PostsList extends Component {
 	componentWillMount() {
@@ -18,70 +25,53 @@ class PostsList extends Component {
 		const {votePost, fetchPosts} = this.props;
 		return this.props.posts.map(post => {
 			return (
-				<div className="media" key={post.id}>
-					<div className="media-vote">
+				<div className="postcard" key={post.id}>
+					<div className="voting">
 						<span>
-							<Button
+							<Fontawesome
+								name="arrow-up"
 								onClick={() => {
 									votePost(post.id, 'upVote');
 									fetchPosts();
 								}}
-								className="btn btn-score"
-							>
-								<span
-									className="glyphicon glyphicon-triangle-top"
-									aria-hidden="true"
-								/>
-							</Button>
-							<div className="vote-score">
-								{post.voteScore}
-							</div>
-							<Button
+							/>
+							<div className="vote-score">{post.voteScore}</div>
+
+							<Fontawesome
+								name="arrow-down"
 								onClick={() => {
 									votePost(post.id, 'downVote');
 									fetchPosts();
 								}}
-								className="btn btn-score"
-							>
-								<span
-									className="glyphicon glyphicon-triangle-bottom"
-									aria-hidden="true"
-								/>
-							</Button>
+							/>
 						</span>
 					</div>
-					<div className="media-body">
-						<h2 className="media-heading">
-							{post.title}
-						</h2>
-						<div>
-							{post.body}
-						</div>
-						<p>
-							<Button bsSize="xsmall">
-								{post.category}
-							</Button>
+					<Card>
+						<CardBlock>
+							<CardTitle>{post.title}</CardTitle>
+							<CardText>
+								{post.body}
+								<a href={'posts/' + post.id}>
+									<Button size="sm" color="link">
+										Read more
+									</Button>
+								</a>
+							</CardText>
+						</CardBlock>
+						<CardFooter>
+							<Button size="sm">{post.category}</Button>
 							<span>
-								Posted on {formatTimestamp(post.timestamp)} by {post.author} in {post.category}
+								Posted on {formatTimestamp(post.timestamp)} by {post.author}
 							</span>
-							<span>
-								<a href={'posts/' + post.id}>View</a>
-							</span>
-						</p>
-						<p>							
-						</p>
-					</div>
+						</CardFooter>
+					</Card>
 				</div>
 			);
 		});
 	}
 
 	render() {
-		return (
-			<div>
-				{this.renderPosts()}
-			</div>
-		);
+		return <div>{this.renderPosts()}</div>;
 	}
 }
 
