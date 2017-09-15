@@ -7,27 +7,21 @@ import {
 	VOTE_POST,
 } from '../actions/index';
 
-const INITIAL_STATE = {
-	all: [],
-	post: null,
-};
+const INITIAL_STATE = {};
 
 export default function(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case FETCH_POSTS:
-			return {
-				...state,
-				all: action.payload,
-			};
+			return _.mapKeys(action.payload, 'id');
 		case FETCH_POST:
 			return {
 				...state,
-				post: action.payload,
+				[action.payload.id]: action.payload,
 			};
 		case EDIT_POST:
 			return {
 				...state,
-				post: action.payload,
+				[action.payload.id]: action.payload,
 			};
 		case VOTE_POST:
 			return {

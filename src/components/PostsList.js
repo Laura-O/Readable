@@ -28,7 +28,9 @@ class PostsList extends Component {
 }
 
 function mapStateToProps(state) {
-	return {posts: state.posts.all.filter(post => !post.deleted)};
+	console.log(state);
+	const posts = _.filter(state.posts, post => !post.deleted);
+	return {posts};
 }
 
 export default connect(mapStateToProps, {

@@ -33,9 +33,7 @@ class PostsDetail extends Component {
 			<div>
 				<Card>
 					<CardBlock>
-						<CardTitle>
-							{post.title}
-						</CardTitle>
+						<CardTitle>{post.title}</CardTitle>
 						<CardText>
 							{post.body}
 
@@ -56,9 +54,7 @@ class PostsDetail extends Component {
 						</CardText>
 					</CardBlock>
 					<CardFooter className="d-flex justify-content-between">
-						<Button size="sm">
-							{post.category}
-						</Button>
+						<Button size="sm">{post.category}</Button>
 						<span>Posted by {post.author}</span>
 					</CardFooter>
 				</Card>
@@ -80,8 +76,8 @@ class PostsDetail extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {post: state.posts.post};
+function mapStateToProps(state, ownProps) {
+	return {post: state.posts[ownProps.match.params.id]};
 }
 
 export default connect(mapStateToProps, {fetchPost, deletePost})(PostsDetail);

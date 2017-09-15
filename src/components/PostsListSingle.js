@@ -30,7 +30,8 @@ class PostsListSingle extends Component {
 	}
 
 	render() {
-		const {post} = this.props;
+		const {post, votePost} = this.props;
+		console.log(this.props);
 		return (
 			<div className="postcard" key={post.id}>
 				<div className="voting">
@@ -39,16 +40,13 @@ class PostsListSingle extends Component {
 							name="arrow-up"
 							onClick={() => {
 								votePost(post.id, 'upVote');
-								fetchPosts();
 							}}
 						/>
 						<div className="vote-score">{post.voteScore}</div>
-
 						<Fontawesome
 							name="arrow-down"
 							onClick={() => {
 								votePost(post.id, 'downVote');
-								fetchPosts();
 							}}
 						/>
 					</span>
@@ -85,4 +83,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
 	fetchCommentsCount,
+	votePost,
 })(PostsListSingle);
