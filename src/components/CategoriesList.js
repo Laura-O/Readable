@@ -12,7 +12,7 @@ class CategoriesList extends Component {
 		if (categories) {
 			return categories.map(category => {
 				return (
-					<p key={category.path}>
+					<p key={category.path} className="text-capitalize">
 						<a href={"/" + category.name}>{category.name}</a>
 					</p>
 				);
