@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
+	Badge,
 	Button,
 	Card,
 	CardText,
@@ -61,13 +62,19 @@ class PostsListSingle extends Component {
 									Read more
 								</Button>
 							</a>
+							<p className="text-muted">
+								<small>
+									Posted on {formatTimestamp(post.timestamp)} by {post.author}
+								</small>
+							</p>
 						</CardText>
 					</CardBlock>
-					<CardFooter>
-						<Button size="sm">{post.category}</Button>
+					<CardFooter className="text-muted">
 						<span>
-							Posted on {formatTimestamp(post.timestamp)} by {post.author}
-							{this.state.count ? this.state.count : 0} comments
+							<Badge>{post.category}</Badge>
+						</span>
+						<span>
+							<Badge color="info">{this.state.count} comments</Badge>
 						</span>
 					</CardFooter>
 				</Card>

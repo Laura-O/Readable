@@ -41,3 +41,7 @@ div.vote-score {
 div.postcard {
   padding: 5px 0 5px 0;
 }
+
+div.singlepost {
+  margin: 5px;
+}

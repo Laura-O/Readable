@@ -31,26 +31,28 @@ class PostsDetail extends Component {
 		}
 		return (
 			<div>
-				<Card>
+				<Card className="singlepost">
 					<CardBlock>
 						<CardTitle>{post.title}</CardTitle>
 						<CardText>
 							{post.body}
 
-							<ButtonGroup className="postButtons">
-								<Link to={`/posts/edit/${post.id}`}>
-									<Button size="sm" color="warning">
-										Edit Post
+							<div className="d-flex flex-row-reverse">
+								<ButtonGroup className="postButtons">
+									<Link to={`/posts/edit/${post.id}`}>
+										<Button size="sm" color="warning">
+											Edit Post
+										</Button>
+									</Link>
+									<Button
+										size="sm"
+										color="danger"
+										onClick={this.deleteButtonPress.bind(this)}
+									>
+										Delete Post
 									</Button>
-								</Link>
-								<Button
-									size="sm"
-									color="danger"
-									onClick={this.deleteButtonPress.bind(this)}
-								>
-									Delete Post
-								</Button>
-							</ButtonGroup>
+								</ButtonGroup>
+							</div>
 						</CardText>
 					</CardBlock>
 					<CardFooter className="d-flex justify-content-between">
@@ -58,7 +60,7 @@ class PostsDetail extends Component {
 						<span>Posted by {post.author}</span>
 					</CardFooter>
 				</Card>
-				<div>
+				<div className="d-flex flex-row-reverse">
 					<Link to={`/${post.category}/${post.id}/comments/new`}>
 						<Button bsSize="xsmall" bsStyle="primary">
 							Add comment

@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button, Card} from 'reactstrap';
+import {Link} from 'react-dom';
+import {Button, ButtonGroup, Card} from 'reactstrap';
 import {fetchPostComments, deleteComment} from '../actions/index';
 
 class Comments extends Component {
@@ -32,9 +33,22 @@ class Comments extends Component {
 							<a href="" className="card-link">
 								Edit
 							</a>
-							<Button onClick={() => this.deleteButton(comment.id)}>
-								Delete
-							</Button>
+							<div className="d-flex flex-row-reverse">
+							<ButtonGroup className="postButtons">
+								
+									<Button size="sm" color="warning">
+										Edit Post
+									</Button>
+								
+								<Button
+									size="sm"
+									color="danger"
+									onClick={() => this.deleteButton(comment.id)}
+								>
+									Delete Post
+								</Button>
+							</ButtonGroup>
+							</div>							
 						</div>
 					</Card>
 				);
