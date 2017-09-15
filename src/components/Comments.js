@@ -23,34 +23,28 @@ class Comments extends Component {
 		const {comments} = this.props;
 		if (comments) {
 			return _.map(comments, comment => {
-				console.log(comment);
 				return (
-					<Card key={comment.id}>
-						<div className="card-block">
-							<div className="card-text">
-								{comment.body}
-							</div>
-							<a href="" className="card-link">
-								Edit
-							</a>
+					<div className="card card-outline-info mb-3 text-center"
+						key={comment.id}>
+						<div className="card-text">
+							{comment.body}
 							<div className="d-flex flex-row-reverse">
-							<ButtonGroup className="postButtons">
-								
+								<ButtonGroup className="postButtons">
 									<Button size="sm" color="warning">
 										Edit Post
 									</Button>
-								
-								<Button
-									size="sm"
-									color="danger"
-									onClick={() => this.deleteButton(comment.id)}
-								>
-									Delete Post
-								</Button>
-							</ButtonGroup>
-							</div>							
-						</div>
-					</Card>
+
+									<Button
+										size="sm"
+										color="danger"
+										onClick={() => this.deleteButton(comment.id)}
+									>
+										Delete Post
+									</Button>
+								</ButtonGroup>
+							</div>
+						</div>						
+					</div>
 				);
 			});
 		}
@@ -58,11 +52,7 @@ class Comments extends Component {
 	}
 
 	render() {
-		return (
-			<div>
-				{this.renderComments()}
-			</div>
-		);
+		return <div>{this.renderComments()}</div>;
 	}
 }
 

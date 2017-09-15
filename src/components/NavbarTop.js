@@ -11,14 +11,9 @@ import {
 const NavbarTop = () => {
 	return (
 		<div>
-			<Navbar color="faded" light toggleable>
+			<Navbar color="faded" light toggleable inverse>
 				<NavbarToggler right onClick={this.toggle} />
-				<NavbarBrand href="/">Readable</NavbarBrand>
-				<Nav className="ml-auto" navbar>
-					<NavItem>
-						<NavLink href="/">Categories</NavLink>
-					</NavItem>
-				</Nav>
+				<NavbarBrand href="/">Readable</NavbarBrand>				
 			</Navbar>
 		</div>
 	);
