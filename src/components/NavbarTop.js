@@ -3,9 +3,6 @@ import {
 	Navbar,
 	NavbarToggler,
 	NavbarBrand,
-	Nav,
-	NavItem,
-	NavLink,
 } from 'reactstrap';
 
 const NavbarTop = () => {

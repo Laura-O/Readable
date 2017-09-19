@@ -13,6 +13,7 @@ export const VOTE_POST = 'vote_post';
 export const CREATE_COMMENT = 'create_comment';
 export const DELETE_COMMENT = 'delete_comment';
 export const FETCH_COMMENTS_COUNT = 'fetch_comments_count';
+export const SORT_POSTS = 'sort_posts';
 
 const url = 'http://localhost:3001';
 const authHeader = {headers: {Authorization: 'whatever-you-want'}};
@@ -142,6 +143,13 @@ export function deleteComment(id, callback) {
 			callback();
 			dispatch({type: DELETE_COMMENT, payload: res.id});
 		});
+	};
+}
+
+export function sortPosts(sortType) {
+	return {
+		type: SORT_POSTS,
+		payload: sortType,
 	};
 }
 

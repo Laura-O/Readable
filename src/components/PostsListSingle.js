@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 import {
 	fetchPosts,
-	fetchCategoryPosts,
 	votePost,
 	fetchCommentsCount,
 } from '../actions/index';

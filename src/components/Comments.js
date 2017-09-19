@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-dom';
-import {Button, ButtonGroup, Card} from 'reactstrap';
+import {Button, ButtonGroup} from 'reactstrap';
 import {fetchPostComments, deleteComment} from '../actions/index';
 
 class Comments extends Component {
