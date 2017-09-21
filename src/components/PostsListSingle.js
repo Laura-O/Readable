@@ -40,7 +40,7 @@ class PostsListSingle extends Component {
 		return (
 			<div className="postcard" key={post.id}>
 				<div className="voting">
-					<span>
+					<div>
 						<Fontawesome
 							name="arrow-up"
 							onClick={() => {
@@ -54,7 +54,7 @@ class PostsListSingle extends Component {
 								votePost(post.id, 'downVote');
 							}}
 						/>
-					</span>
+					</div>
 				</div>
 				<Card>
 					<CardBlock>
@@ -66,12 +66,12 @@ class PostsListSingle extends Component {
 									Read more
 								</Button>
 							</a>
-							<p className="text-muted">
+							<span className="text-muted">
 								<small>
 									Posted on {formatTimestamp(post.timestamp)} by {post.author}
 								</small>
-							</p>
-							<p className="postButtons">
+							</span>
+							<span className="postButtons">
 								<Link to={`posts/edit/${post.id}`}>
 									<Button color="warning" size="sm">
 										Edit
@@ -81,7 +81,7 @@ class PostsListSingle extends Component {
 									Delete
 								</Button>
 							</Link>
-							</p>
+						</span>
 						</CardText>
 					</CardBlock>
 					<CardFooter className="text-muted">
