@@ -12,9 +12,9 @@ class CategoriesList extends Component {
 		if (categories) {
 			return categories.map(category => {
 				return (
-					<p key={category.path} className="text-capitalize">
-						<a href={"/" + category.name}>{category.name}</a>
-					</p>
+					<li key={category.path} className="list-group-item text-capitalize">
+						<a href={'/' + category.name}>{category.name}</a>
+					</li>
 				);
 			});
 		}
@@ -25,7 +25,7 @@ class CategoriesList extends Component {
 		return (
 			<div>
 				<h2>Categories</h2>
-				{this.renderCategories()}
+				<ul className="list-group">{this.renderCategories()}</ul>
 			</div>
 		);
 	}
