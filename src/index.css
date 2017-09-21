@@ -54,3 +54,7 @@ button.sorting:hover {
 .sortButtons {
   float: left;
 }
+
+.postButtons {
+  float: right;
+}

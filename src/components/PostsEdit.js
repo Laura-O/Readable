@@ -21,12 +21,12 @@ class PostsEdit extends Component {
 				body: this.props.post.body,
 			};
 			this.props.initialize(initData);
-		}
+		}		
 	}
 
 	renderField(field) {
 		const {meta: {touched, error}} = field;
-		const className = touched && error ? 'error' : null;
+		const className = touched && error ? 'has-danger' : null;
 
 		return (
 			<Form>
@@ -49,12 +49,12 @@ class PostsEdit extends Component {
 
 	render() {
 		const {handleSubmit} = this.props;
-		console.log('post', this.props.post);
+		console.log('post', this.state);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />
-				<Field label="Content" name="body" component={this.renderField} />				
-				<Button type="submit" bsStyle="primary">
+				<Field label="Content" name="body" value="bla" component={this.renderField} />				
+				<Button type="submit" color="primary">
 					Update
 				</Button>
 				<Link to="/" className="btn btn-danger">
@@ -69,21 +69,15 @@ function validate(values) {
 	const errors = {};
 	if (!values.title) {
 		errors.title = 'Title missing';
-	}
-	if (!values.author) {
-		errors.author = 'Author missing';
-	}
+	}	
 	if (!values.body) {
 		errors.body = 'Body missing';
-	}
-	if (!values.category) {
-		errors.category = 'Category missing';
-	}
+	}	
 	return errors;
 }
 
-function mapStateToProps(state) {
-	return {post: state.posts.post};
+function mapStateToProps(state, ownProps) {
+	return {post: state.posts[ownProps.match.params.id]};
 }
 
 export default reduxForm({

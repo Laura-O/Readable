@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {
 	Badge,
 	Button,
@@ -65,6 +66,16 @@ class PostsListSingle extends Component {
 								<small>
 									Posted on {formatTimestamp(post.timestamp)} by {post.author}
 								</small>
+							</p>
+							<p className="postButtons">
+								<Link to={`posts/edit/${post.id}`}>
+								<Button color="info" size="sm">
+									Edit
+								</Button>
+							</Link>
+								<Button size="sm" color="danger">
+									Delete
+								</Button>
 							</p>
 						</CardText>
 					</CardBlock>
