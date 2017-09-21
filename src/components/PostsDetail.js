@@ -10,10 +10,16 @@ import {
 	CardBlock,
 	CardTitle,
 } from 'reactstrap';
-import {fetchPost, deletePost} from '../actions';
+import Fontawesome from 'react-fontawesome';
+import {fetchPost, votePost, deletePost} from '../actions';
 import Comments from './Comments';
 
 class PostsDetail extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {count: 0};
+	}
+
 	componentWillMount() {
 		this.props.fetchPost(this.props.match.params.id);
 	}
@@ -25,12 +31,29 @@ class PostsDetail extends Component {
 	}
 
 	render() {
-		const {post} = this.props;
+		const {post, votePost} = this.props;
 		if (!post) {
 			return <div>Loading...</div>;
 		}
 		return (
 			<div>
+				<div className="voting">
+					<span>
+						<Fontawesome
+							name="arrow-up"
+							onClick={() => {
+								votePost(post.id, 'upVote');
+							}}
+						/>
+						<div className="vote-score">{post.voteScore}</div>
+						<Fontawesome
+							name="arrow-down"
+							onClick={() => {
+								votePost(post.id, 'downVote');
+							}}
+						/>
+					</span>
+				</div>
 				<Card className="singlepost">
 					<CardBlock>
 						<CardTitle>{post.title}</CardTitle>
@@ -41,7 +64,7 @@ class PostsDetail extends Component {
 								<ButtonGroup className="postButtons">
 									<Link to={`/posts/edit/${post.id}`}>
 										<Button size="sm" color="warning">
-											Edit Post
+											Edit
 										</Button>
 									</Link>
 									<Button
@@ -49,7 +72,7 @@ class PostsDetail extends Component {
 										color="danger"
 										onClick={this.deleteButtonPress.bind(this)}
 									>
-										Delete Post
+										Delete
 									</Button>
 								</ButtonGroup>
 							</div>
@@ -62,7 +85,7 @@ class PostsDetail extends Component {
 				</Card>
 				<div className="d-flex flex-row-reverse">
 					<Link to={`/${post.category}/${post.id}/comments/new`}>
-						<Button bsSize="xsmall" bsStyle="primary">
+						<Button bsSize="xsmall" color="primary">
 							Add comment
 						</Button>
 					</Link>
@@ -82,4 +105,6 @@ function mapStateToProps(state, ownProps) {
 	return {post: state.posts[ownProps.match.params.id]};
 }
 
-export default connect(mapStateToProps, {fetchPost, deletePost})(PostsDetail);
+export default connect(mapStateToProps, {fetchPost, deletePost, votePost})(
+	PostsDetail
+);

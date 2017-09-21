@@ -14,6 +14,7 @@ import {
 	fetchPosts,
 	votePost,
 	fetchCommentsCount,
+	deletePost,
 } from '../actions/index';
 import formatTimestamp from '../utils/formatTimestamp';
 import Fontawesome from 'react-fontawesome';
@@ -27,6 +28,12 @@ class PostsListSingle extends Component {
 	componentWillMount() {
 		this.props.fetchCommentsCount(this.props.post.id, data => {
 			this.setState({count: data.length});
+		});
+	}
+
+	deleteButtonPress() {
+		this.props.deletePost(this.props.match.params.id, () => {
+			this.props.history.push('/');
 		});
 	}
 
@@ -69,10 +76,10 @@ class PostsListSingle extends Component {
 							</p>
 							<p className="postButtons">
 								<Link to={`posts/edit/${post.id}`}>
-								<Button color="info" size="sm">
-									Edit
-								</Button>
-							</Link>
+									<Button color="warning" size="sm">
+										Edit
+									</Button>
+								</Link>
 								<Button size="sm" color="danger">
 									Delete
 								</Button>
