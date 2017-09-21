@@ -59,6 +59,10 @@ button.sorting:hover {
   float: right;
 }
 
+.commentButtons {
+  align-items: center;
+}
+
 .commentSection {
   margin: 15px 0 10px 0;
 }

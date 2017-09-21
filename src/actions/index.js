@@ -13,6 +13,7 @@ export const VOTE_POST = 'vote_post';
 export const CREATE_COMMENT = 'create_comment';
 export const DELETE_COMMENT = 'delete_comment';
 export const FETCH_COMMENTS_COUNT = 'fetch_comments_count';
+export const VOTE_COMMENT = 'vote_comment';
 export const SORT_POSTS = 'sort_posts';
 
 const url = 'http://localhost:3001';
@@ -87,6 +88,14 @@ export function votePost(id, vote) {
 		axios
 			.post(`${url}/posts/${id}`, {option: vote})
 			.then(res => dispatch({type: VOTE_POST, payload: res.data}));
+	};
+}
+
+export function voteComment(id, vote) {
+	return dispatch => {
+		axios
+			.post(`${url}/comments/${id}`, {option: vote})
+			.then(res => dispatch({type: VOTE_COMMENT, payload: res.data}));
 	};
 }
 

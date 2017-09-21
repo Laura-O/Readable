@@ -3,6 +3,7 @@ import {
 	FETCH_POST_COMMENTS,
 	DELETE_COMMENT,
 	FETCH_COMMENTS_COUNT,
+	VOTE_COMMENT,
 } from '../actions';
 
 const INITIAL_STATE = {};
@@ -17,6 +18,11 @@ export default function(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				count: action.payload,
+			};
+		case VOTE_COMMENT:
+			return {
+				...state,
+				[action.payload.id]: action.payload,
 			};
 		default:
 			return state;
