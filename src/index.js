@@ -9,7 +9,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const logger = store => next => action => {
   console.log('dispatching', action)
@@ -18,12 +18,7 @@ const logger = store => next => action => {
   return result
 }
 
-
-//const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, logger)));
-
 const store = createStore(reducer, applyMiddleware(thunk, logger));
-
-
 
 ReactDOM.render(
 	<Provider store={store}>
