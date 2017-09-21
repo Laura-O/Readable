@@ -45,3 +45,12 @@ div.postcard {
 div.singlepost {
   margin: 5px;
 }
+
+button.sorting:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.sortButtons {
+  float: left;
+}

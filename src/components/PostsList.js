@@ -33,14 +33,17 @@ class PostsList extends Component {
 		const {sortPosts} = this.props;
 		return (
 			<div>
-				<ButtonGroup>
-					<Button value="score" onClick={event => sortPosts('voteScore')}>
+				<div className="d-flex p-2">
+				<span>Sort by: </span>
+				<ButtonGroup className="sortButtons">
+					<Button className="sorting" size="sm" value="score" onClick={event => sortPosts('voteScore')}>
 						Score
 					</Button>
-					<Button value="date" onClick={event => sortPosts('timestamp')}>
+					<Button className="sorting" size="sm" value="date" onClick={event => sortPosts('timestamp')}>
 						Date
 					</Button>
 				</ButtonGroup>
+				</div>
 				<div>{this.renderPosts()}</div>
 			</div>
 		);
