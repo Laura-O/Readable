@@ -21,10 +21,9 @@ class Comments extends Component {
 	renderComments() {
 		const {comments} = this.props;
 		if (comments) {
-			return _.map(comments, comment => {
+			return _.map(comments, (comment, id) => {
 				return (
-					<div className="card card-outline-info mb-3 text-center"
-						key={comment.id}>
+					<div className="card card-outline-info mb-3 text-center" key={id}>
 						<div className="card-text">
 							{comment.body}
 							<div className="d-flex flex-row-reverse">
@@ -32,7 +31,6 @@ class Comments extends Component {
 									<Button size="sm" color="warning">
 										Edit Post
 									</Button>
-
 									<Button
 										size="sm"
 										color="danger"
@@ -42,7 +40,7 @@ class Comments extends Component {
 									</Button>
 								</ButtonGroup>
 							</div>
-						</div>						
+						</div>
 					</div>
 				);
 			});

@@ -36,8 +36,7 @@ class PostsListSingle extends Component {
 	}
 
 	render() {
-		const {post, votePost} = this.props;
-		console.log(this.props);
+		const {post, votePost} = this.props;		
 		return (
 			<div className="postcard" key={post.id}>
 				<div className="voting">

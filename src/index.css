@@ -58,3 +58,7 @@ button.sorting:hover {
 .postButtons {
   float: right;
 }
+
+.commentSection {
+  margin: 15px 0 10px 0;
+}

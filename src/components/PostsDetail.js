@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {
+	Badge,
 	Button,
 	ButtonGroup,
 	Card,
@@ -11,18 +12,21 @@ import {
 	CardTitle,
 } from 'reactstrap';
 import Fontawesome from 'react-fontawesome';
-import {fetchPost, votePost, deletePost} from '../actions';
+import {fetchPost, fetchCommentsCount, votePost, deletePost} from '../actions';
 import Comments from './Comments';
 
 class PostsDetail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {count: 0};
-		console.log(this.props)
+		console.log(this.props);
 	}
 
 	componentWillMount() {
 		this.props.fetchPost(this.props.match.params.id);
+		this.props.fetchCommentsCount(this.props.match.params.id, data => {
+			this.setState({count: data.length});
+		});
 	}
 
 	deleteButtonPress() {
@@ -60,7 +64,6 @@ class PostsDetail extends Component {
 						<CardTitle>{post.title}</CardTitle>
 						<CardText>
 							{post.body}
-
 							<div className="d-flex flex-row-reverse">
 								<ButtonGroup className="postButtons">
 									<Link to={`/posts/edit/${post.id}`}>
@@ -80,13 +83,18 @@ class PostsDetail extends Component {
 						</CardText>
 					</CardBlock>
 					<CardFooter className="d-flex justify-content-between">
-						<Button size="sm">{post.category}</Button>
+						<span>
+							<Badge>{post.category}</Badge>
+						</span>
+						<span>
+							<Badge>{this.state.count} Comments</Badge>
+						</span>
 						<span>Posted by {post.author}</span>
 					</CardFooter>
 				</Card>
-				<div className="d-flex flex-row-reverse">
+				<div className="d-flex flex-row-reverse commentSection">
 					<Link to={`/${post.category}/${post.id}/comments/new`}>
-						<Button bsSize="xsmall" color="primary">
+						<Button size="sm" color="primary">
 							Add comment
 						</Button>
 					</Link>
@@ -103,9 +111,12 @@ class PostsDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {post: state.posts[ownProps.match.params.id]};
+	return {post: state.posts[ownProps.match.params.id], count: state.comments};
 }
 
-export default connect(mapStateToProps, {fetchPost, deletePost, votePost})(
-	PostsDetail
-);
+export default connect(mapStateToProps, {
+	fetchPost,
+	fetchCommentsCount,
+	deletePost,
+	votePost,
+})(PostsDetail);
