@@ -10,8 +10,7 @@ import {
 	CardTitle,
 	CardFooter,
 } from 'reactstrap';
-import {
-	fetchPosts,
+import {	
 	votePost,
 	fetchCommentsCount,
 	deletePost,
@@ -31,10 +30,9 @@ class PostsListSingle extends Component {
 		});
 	}
 
-	deleteButtonPress() {
-		this.props.deletePost(this.props.match.params.id, () => {
-			this.props.history.push('/');
-		});
+	deleteButtonPress(id) {
+		this.props.deletePost(id, () => {});
+		console.log(this.props)
 	}
 
 	render() {
@@ -80,9 +78,10 @@ class PostsListSingle extends Component {
 										Edit
 									</Button>
 								</Link>
-								<Button size="sm" color="danger">
+								<Link to={"/"}><Button size="sm" color="danger" onClick={() => this.deleteButtonPress(post.id)}>
 									Delete
 								</Button>
+							</Link>
 							</p>
 						</CardText>
 					</CardBlock>
@@ -107,5 +106,6 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
 	fetchCommentsCount,
+	deletePost,
 	votePost,
 })(PostsListSingle);

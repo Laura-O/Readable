@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {
 	fetchPosts,
 	fetchCategoryPosts,
-	votePost,
 	sortPosts,
 } from '../actions/index';
 import {ButtonGroup, Button} from 'reactstrap';
@@ -18,9 +17,9 @@ class PostsList extends Component {
 			this.props.fetchPosts();
 		}
 	}
-
+		
 	renderPosts() {
-		const {votePost, fetchPosts, posts} = this.props;
+		const {posts} = this.props;
 		if (posts) {
 			const orderedPosts = _.sortBy(posts, this.props.postsOrder).reverse();
 			return orderedPosts.map(post => (
@@ -59,6 +58,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
 	fetchPosts,
 	fetchCategoryPosts,
-	votePost,
 	sortPosts,
 })(PostsList);

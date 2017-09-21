@@ -5,6 +5,7 @@ import {
 	EDIT_POST,
 	DELETE_POST,
 	VOTE_POST,
+	SORT_POSTS,
 } from '../actions/index';
 
 const INITIAL_STATE = {};
@@ -29,7 +30,9 @@ export default function(state = INITIAL_STATE, action) {
 				[action.payload.id]: action.payload,
 			};
 		case DELETE_POST:
-			return _.omit(state, action.payload);	
+			return _.omit(state, action.payload);			
+		case SORT_POSTS:		
+					return action.payload;
 		default:
 			return state;
 	}

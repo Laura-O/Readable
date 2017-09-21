@@ -18,6 +18,7 @@ class PostsDetail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {count: 0};
+		console.log(this.props)
 	}
 
 	componentWillMount() {

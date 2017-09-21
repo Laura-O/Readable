@@ -77,7 +77,7 @@ export function deletePost(id, callback) {
 	return dispatch => {
 		axios.delete(`${url}/posts/${id}`).then(res => {
 			callback();
-			dispatch({type: DELETE_POST, payload: res.id});
+			dispatch({type: DELETE_POST, payload: id});
 		});
 	};
 }
