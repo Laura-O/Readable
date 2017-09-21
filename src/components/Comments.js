@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Button, ButtonGroup} from 'reactstrap';
 import Fontawesome from 'react-fontawesome';
@@ -20,7 +21,7 @@ class Comments extends Component {
 	}
 
 	renderComments() {
-		const {voteComment, comments} = this.props;
+		const {voteComment, comments, postId} = this.props;
 		console.log(comments);
 		if (comments) {
 			return _.map(comments, (comment, id) => {
@@ -51,9 +52,11 @@ class Comments extends Component {
 						</div>
 						<div className="ml-auto p-4">
 							<ButtonGroup>
-								<Button size="sm" color="warning">
-									Edit Post
-								</Button>
+								<Link to={`${postId}/comments/edit/${comment.id}`}>
+									<Button size="sm" color="warning">
+										Edit Post
+									</Button>
+								</Link>
 								<Button
 									size="sm"
 									color="danger"

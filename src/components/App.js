@@ -6,6 +6,7 @@ import PostsCreate from './PostsCreate';
 import PostsEdit from './PostsEdit';
 import NavbarTop from './NavbarTop';
 import CommentsCreate from './CommentsCreate';
+import CommentsEdit from './CommentsEdit';
 
 class App extends Component {
 	render() {
@@ -20,6 +21,7 @@ class App extends Component {
 						<Route exact path="/posts/edit/:id" children={props => <PostsEdit {...props} />}/>
 						<Route exact path="/posts/:id" component={PostsDetail} />
 						<Route path="/:category/:id/comments/new" component={CommentsCreate} />
+						<Route exact path="/posts/:postId/comments/edit/:id" children={props => <CommentsEdit {...props} />}/>						
 					</Switch>
 				</div>
 			</div>

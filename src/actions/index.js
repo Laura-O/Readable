@@ -11,8 +11,10 @@ export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
 export const VOTE_POST = 'vote_post';
 export const CREATE_COMMENT = 'create_comment';
+export const EDIT_COMMENT = 'edit_comment';
 export const DELETE_COMMENT = 'delete_comment';
 export const FETCH_COMMENTS_COUNT = 'fetch_comments_count';
+export const FETCH_COMMENT = 'fetch_comment';
 export const VOTE_COMMENT = 'vote_comment';
 export const SORT_POSTS = 'sort_posts';
 
@@ -146,11 +148,28 @@ export function fetchCommentsCount(postId, callback) {
 	};
 }
 
+export function fetchComment(id) {
+	return dispatch => {
+		axios
+			.get(`${url}/comments/${id}`)
+			.then(res => dispatch({type: FETCH_COMMENT, payload: res.data}));
+	};
+}
+
 export function deleteComment(id, callback) {
 	return dispatch => {
 		axios.delete(`${url}/comments/${id}`).then(res => {
 			callback();
 			dispatch({type: DELETE_COMMENT, payload: res.id});
+		});
+	};
+}
+
+export function editComment(id, values, callback) {
+	return dispatch => {
+		axios.put(`${url}/comments/${id}`, values).then(res => {
+			callback();
+			dispatch({type: EDIT_COMMENT, payload: res.data});
 		});
 	};
 }
