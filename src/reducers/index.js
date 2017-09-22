@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
 	categories: CategoriesReducer,
 	form: formReducer,
 	comments: CommentsReducer,
-	postsOrder:  PostsOrderReducer,
+	postsOrder: PostsOrderReducer,
 });
 
 export default rootReducer;

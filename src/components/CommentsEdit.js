@@ -46,7 +46,7 @@ class CommentsEdit extends Component {
 		});
 	}
 
-	render() {		
+	render() {
 		const {handleSubmit} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>

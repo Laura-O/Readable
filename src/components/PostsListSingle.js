@@ -10,11 +10,7 @@ import {
 	CardTitle,
 	CardFooter,
 } from 'reactstrap';
-import {	
-	votePost,
-	fetchCommentsCount,
-	deletePost,
-} from '../actions/index';
+import {votePost, fetchCommentsCount, deletePost} from '../actions/index';
 import formatTimestamp from '../utils/formatTimestamp';
 import Fontawesome from 'react-fontawesome';
 
@@ -32,11 +28,11 @@ class PostsListSingle extends Component {
 
 	deleteButtonPress(id) {
 		this.props.deletePost(id, () => {});
-		console.log(this.props)
+		console.log(this.props);
 	}
 
 	render() {
-		const {post, votePost} = this.props;		
+		const {post, votePost} = this.props;
 		return (
 			<div className="postcard" key={post.id}>
 				<div className="voting">
@@ -77,11 +73,16 @@ class PostsListSingle extends Component {
 										Edit
 									</Button>
 								</Link>
-								<Link to={"/"}><Button size="sm" color="danger" onClick={() => this.deleteButtonPress(post.id)}>
-									Delete
-								</Button>
-							</Link>
-						</span>
+								<Link to={'/'}>
+									<Button
+										size="sm"
+										color="danger"
+										onClick={() => this.deleteButtonPress(post.id)}
+									>
+										Delete
+									</Button>
+								</Link>
+							</span>
 						</CardText>
 					</CardBlock>
 					<CardFooter className="text-muted">

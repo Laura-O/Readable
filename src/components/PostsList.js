@@ -1,11 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-	fetchPosts,
-	fetchCategoryPosts,
-	sortPosts,
-} from '../actions/index';
+import {fetchPosts, fetchCategoryPosts, sortPosts} from '../actions/index';
 import {ButtonGroup, Button} from 'reactstrap';
 import PostsListSingle from './PostsListSingle';
 
@@ -17,7 +13,7 @@ class PostsList extends Component {
 			this.props.fetchPosts();
 		}
 	}
-		
+
 	renderPosts() {
 		const {posts} = this.props;
 		if (posts) {
@@ -33,15 +29,25 @@ class PostsList extends Component {
 		return (
 			<div>
 				<div className="d-flex p-2">
-				<span>Sort by: </span>
-				<ButtonGroup className="sortButtons">
-					<Button className="sorting" size="sm" value="score" onClick={event => sortPosts('voteScore')}>
-						Score
-					</Button>
-					<Button className="sorting" size="sm" value="date" onClick={event => sortPosts('timestamp')}>
-						Date
-					</Button>
-				</ButtonGroup>
+					<span>Sort by: </span>
+					<ButtonGroup className="sortButtons">
+						<Button
+							className="sorting"
+							size="sm"
+							value="score"
+							onClick={event => sortPosts('voteScore')}
+						>
+							Score
+						</Button>
+						<Button
+							className="sorting"
+							size="sm"
+							value="date"
+							onClick={event => sortPosts('timestamp')}
+						>
+							Date
+						</Button>
+					</ButtonGroup>
 				</div>
 				<div>{this.renderPosts()}</div>
 			</div>

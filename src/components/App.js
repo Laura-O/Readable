@@ -16,12 +16,27 @@ class App extends Component {
 				<div className="container">
 					<Switch>
 						<Route exact path="/" component={PostsMain} />
-						<Route path="/:category" exact component={props => <PostsMain {...props} />} />
+						<Route
+							path="/:category"
+							exact
+							component={props => <PostsMain {...props} />}
+						/>
 						<Route exact path="/posts/new" component={PostsCreate} />
-						<Route exact path="/posts/edit/:id" children={props => <PostsEdit {...props} />}/>
+						<Route
+							exact
+							path="/posts/edit/:id"
+							children={props => <PostsEdit {...props} />}
+						/>
 						<Route exact path="/posts/:id" component={PostsDetail} />
-						<Route path="/:category/:id/comments/new" component={CommentsCreate} />
-						<Route exact path="/posts/:postId/comments/edit/:id" children={props => <CommentsEdit {...props} />}/>						
+						<Route
+							path="/:category/:id/comments/new"
+							component={CommentsCreate}
+						/>
+						<Route
+							exact
+							path="/posts/:postId/comments/edit/:id"
+							children={props => <CommentsEdit {...props} />}
+						/>
 					</Switch>
 				</div>
 			</div>
