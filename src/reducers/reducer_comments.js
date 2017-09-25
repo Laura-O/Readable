@@ -5,7 +5,7 @@ import {
 	FETCH_COMMENTS_COUNT,
 	VOTE_COMMENT,
 	FETCH_COMMENT,
-} from '../actions';
+} from '../actions/types';
 
 const INITIAL_STATE = {};
 

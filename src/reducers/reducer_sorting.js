@@ -1,4 +1,4 @@
-import {SORT_POSTS} from '../actions/index';
+import {SORT_POSTS} from '../actions/types';
 
 const INITIAL_STATE = 'votescore';
 

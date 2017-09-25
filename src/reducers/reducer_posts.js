@@ -5,7 +5,7 @@ import {
 	EDIT_POST,
 	DELETE_POST,
 	VOTE_POST,
-} from '../actions/index';
+} from '../actions/types';
 
 const INITIAL_STATE = {};
 
