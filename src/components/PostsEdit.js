@@ -21,7 +21,7 @@ class PostsEdit extends Component {
 				body: this.props.post.body,
 			};
 			this.props.initialize(initData);
-		}		
+		}
 	}
 
 	renderField(field) {
@@ -43,21 +43,21 @@ class PostsEdit extends Component {
 		const {editPost, match: {params: {id}}, history} = this.props;
 
 		editPost(id, values, () => {
-			history.push('/');
+			history.push('/posts/' + id);
 		});
 	}
 
 	render() {
-		const {handleSubmit} = this.props;
+		const {handleSubmit, post} = this.props;
 		console.log('post', this.state);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />
-				<Field label="Content" name="body" value="bla" component={this.renderField} />				
+				<Field label="Content" name="body" value="bla" component={this.renderField} />
 				<Button type="submit" color="primary">
 					Update
 				</Button>
-				<Link to="/" className="btn btn-danger">
+				<Link to={"/posts/" + post.id} className="btn btn-danger">
 					Cancel
 				</Link>
 			</form>
@@ -69,10 +69,10 @@ function validate(values) {
 	const errors = {};
 	if (!values.title) {
 		errors.title = 'Title missing';
-	}	
+	}
 	if (!values.body) {
 		errors.body = 'Body missing';
-	}	
+	}
 	return errors;
 }
 
