@@ -49,7 +49,6 @@ class PostsEdit extends Component {
 
 	render() {
 		const {handleSubmit, post} = this.props;
-		console.log('post', this.state);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />

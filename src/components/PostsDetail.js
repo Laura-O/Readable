@@ -14,6 +14,7 @@ import {
 import Fontawesome from 'react-fontawesome';
 import {fetchPost, fetchCommentsCount, votePost, deletePost} from '../actions';
 import Comments from './Comments';
+import NotFound from './NotFound';
 
 class PostsDetail extends Component {
 	constructor(props) {
@@ -37,10 +38,10 @@ class PostsDetail extends Component {
 
 	render() {
 		const {post, votePost} = this.props;
-		if (!post) {
-			return <div>Loading...</div>;
-		}
 		return (
+			(!post) ?
+			<NotFound />
+			:
 			<div>
 				<div className="voting">
 					<span>
