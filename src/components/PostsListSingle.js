@@ -54,7 +54,7 @@ class PostsListSingle extends Component {
 				</div>
 				<Card>
 					<CardBlock>
-						<CardTitle>{post.title}</CardTitle>
+						<CardTitle><Link to={'posts/' + post.id}>{post.title}</Link></CardTitle>
 						<CardText>
 							{post.body}
 							<a href={'posts/' + post.id}>
