@@ -2,14 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {
-	Badge,
-	Button,
-	ButtonGroup,
-	Card,
-	CardFooter,
-	CardText,
-	CardBlock,
-	CardTitle,
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  CardFooter,
+  CardBlock,
+  CardTitle,
 } from 'reactstrap';
 import Fontawesome from 'react-fontawesome';
 import {fetchPost, fetchCommentsCount, votePost, deletePost} from '../actions';
@@ -17,107 +16,113 @@ import Comments from './Comments';
 import NotFound from './NotFound';
 
 class PostsDetail extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {count: 0};
-		console.log(this.props);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {count: 0};
+  }
 
-	componentWillMount() {
-		this.props.fetchPost(this.props.match.params.id);
-		this.props.fetchCommentsCount(this.props.match.params.id, data => {
-			this.setState({count: data.length});
-		});
-	}
+  componentWillMount() {
+    this.props.fetchPost(this.props.match.params.id);
+    this.props.fetchCommentsCount(this.props.match.params.id, data => {
+      this.setState({count: data.length});
+    });
+  }
 
-	deleteButtonPress() {
-		this.props.deletePost(this.props.match.params.id, () => {
-			this.props.history.push('/');
-		});
-	}
+  deleteButtonPress() {
+    this.props.deletePost(this.props.match.params.id, () => {
+      this.props.history.push('/');
+    });
+  }
 
-	render() {
-		const {post, votePost} = this.props;
-		return (
-			(!post) ?
-			<NotFound />
-			:
-			<div>
-				<div className="voting">
-					<span>
-						<Fontawesome
-							name="arrow-up"
-							onClick={() => {
-								votePost(post.id, 'upVote');
-							}}
-						/>
-						<div className="vote-score">{post.voteScore}</div>
-						<Fontawesome
-							name="arrow-down"
-							onClick={() => {
-								votePost(post.id, 'downVote');
-							}}
-						/>
-					</span>
-				</div>
-				<Card className="singlepost">
-					<CardBlock>
-						<CardTitle>{post.title}</CardTitle>
-						<CardText>
-							{post.body}
-							<div className="d-flex flex-row-reverse">
-								<ButtonGroup className="postButtons">
-									<Link to={`/posts/edit/${post.id}`}>
-										<Button size="sm" color="warning">
-											Edit
-										</Button>
-									</Link>
-									<Button
-										size="sm"
-										color="danger"
-										onClick={this.deleteButtonPress.bind(this)}
-									>
-										Delete
-									</Button>
-								</ButtonGroup>
-							</div>
-						</CardText>
-					</CardBlock>
-					<CardFooter className="d-flex justify-content-between">
-						<span>
-							<Badge>{post.category}</Badge>
-						</span>
-						<span>
-							<Badge>{this.state.count} Comments</Badge>
-						</span>
-						<span>Posted by {post.author}</span>
-					</CardFooter>
-				</Card>
-				<div className="d-flex flex-row-reverse commentSection">
-					<Link to={`/${post.category}/${post.id}/comments/new`}>
-						<Button size="sm" color="primary">
-							Add comment
-						</Button>
-					</Link>
-				</div>
-				<Comments postId={post.id} />
-				<div className="back">
-					<Link to="/">
-						<Button color="link">Back</Button>
-					</Link>
-				</div>
-			</div>
-		);
-	}
+  render() {
+    const {post, votePost} = this.props;
+    return !post
+      ? <NotFound />
+      : <div>
+          <div className="voting">
+            <span>
+              <Fontawesome
+                name="arrow-up"
+                onClick={() => {
+                  votePost(post.id, 'upVote');
+                }}
+              />
+              <div className="vote-score">
+                {post.voteScore}
+              </div>
+              <Fontawesome
+                name="arrow-down"
+                onClick={() => {
+                  votePost(post.id, 'downVote');
+                }}
+              />
+            </span>
+          </div>
+          <Card className="singlepost">
+            <CardBlock>
+              <CardTitle>
+                {post.title}
+              </CardTitle>
+              <div>
+                {post.body}
+                <div className="d-flex flex-row-reverse">
+                  <ButtonGroup className="postButtons">
+                    <Link to={`/posts/edit/${post.id}`}>
+                      <Button size="sm" color="warning">
+                        Edit
+                      </Button>
+                    </Link>
+                    <Button
+                      size="sm"
+                      color="danger"
+                      onClick={this.deleteButtonPress.bind(this)}
+                    >
+                      Delete
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </div>
+            </CardBlock>
+            <CardFooter className="d-flex justify-content-between">
+              <span>
+                <Badge>
+                  {post.category}
+                </Badge>
+              </span>
+              <span>
+                <Badge>
+                  {this.state.count} Comments
+                </Badge>
+              </span>
+              <span>
+                Posted by {post.author}
+              </span>
+            </CardFooter>
+          </Card>
+          <div className="d-flex flex-row-reverse commentSection">
+            <Link to={`/${post.category}/${post.id}/comments/new`}>
+              <Button size="sm" color="primary">
+                Add comment
+              </Button>
+            </Link>
+          </div>
+          <Comments postId={post.id} />
+          <div className="back">
+            <Link to="/">
+              <Button color="link">Back</Button>
+            </Link>
+          </div>
+        </div>;
+  }
 }
 
 function mapStateToProps(state, ownProps) {
-	return {post: state.posts[ownProps.match.params.id], count: state.comments};
+  return {post: state.posts[ownProps.match.params.id], count: state.comments};
 }
 
 export default connect(mapStateToProps, {
-	fetchPost,
-	fetchCommentsCount,
-	deletePost,
-	votePost,
+  fetchPost,
+  fetchCommentsCount,
+  deletePost,
+  votePost,
 })(PostsDetail);

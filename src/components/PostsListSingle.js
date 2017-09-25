@@ -61,7 +61,7 @@ class PostsListSingle extends Component {
 								<Button size="sm" color="link">
 									Read more
 								</Button>
-							</a>
+							</a><br/>
 							<span className="text-muted">
 								<small>
 									Posted on {formatTimestamp(post.timestamp)} by {post.author}
