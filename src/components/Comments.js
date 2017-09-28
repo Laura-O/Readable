@@ -55,7 +55,7 @@ class Comments extends Component {
               <ButtonGroup>
                 <Link to={`${postId}/comments/edit/${comment.id}`}>
                   <Button size="sm" color="warning">
-                    Edit Post
+                    Edit Comment
                   </Button>
                 </Link>
                 <Button
@@ -63,7 +63,7 @@ class Comments extends Component {
                   color="danger"
                   onClick={() => this.deleteButton(comment.id)}
                 >
-                  Delete Post
+                  Delete Comment
                 </Button>
               </ButtonGroup>
             </div>
