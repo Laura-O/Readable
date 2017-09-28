@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import {Button, Form, Input} from 'reactstrap';
+import {Button} from 'reactstrap';
 import {connect} from 'react-redux';
 import {createPost, fetchCategories} from '../actions';
 
@@ -15,39 +15,62 @@ class PostsCreate extends Component {
 		const className = touched && error ? 'has-danger' : null;
 
 		return (
-			<Form>
 				<div className={'form-group ' + className}>
 					<label>{field.label}</label>
 					<input type="text" {...field.input} />
 					<div className="form-control-feedback">{touched ? error : ''}</div>
+				</div>			
+		);
+	}
+
+	renderCategoryField(field) {
+		const {categories} = this.props;
+		const {meta: {touched, error}} = field;
+		const className = touched && error ? 'error' : null;
+		
+		return (
+			<div className={'form-group ' + className}>
+				<label>{field.label}</label>
+				<select {...field.input} className="form-control text-capitalize">
+					<option value="" className="disabled">
+						Select Category
+					</option>
+					{categories.map(category => (
+						<option key={category.name} value={category.name}>
+							{category.name}
+						</option>
+					))}
+				</select>
+				<div className="form-control-feedback">
+					{field.meta.touched ? field.meta.error : ''}
 				</div>
-			</Form>
+			</div>
 		);
 	}
 
 	onSubmit(values) {
+		console.log(values);
 		this.props.createPost(values, () => {
 			this.props.history.push('/');
 		});
 	}
 
 	render() {
-		const {handleSubmit, categories} = this.props;
+		const {handleSubmit} = this.props;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<Field label="Title" name="title" component={this.renderField} />
 				<Field label="Content" name="body" component={this.renderField} />
 				<Field label="Author" name="author" component={this.renderField} />
-				<Input type="select" name="category" component="select">
-					{categories.map(category => (
-						<option key={category.name} value={category.name}>
-							{category.name}
-						</option>
-					))}
-				</Input>
+				<Field
+					label="Category"
+					name="category"
+					component={field => this.renderCategoryField(field)}
+				>
+				</Field>
 				<br />
-				<Button type="submit" bsStyle="primary">
+				<Button type="submit" color="primary">
 					Submit
 				</Button>
 				<Link to="/" className="btn btn-danger">

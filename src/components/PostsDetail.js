@@ -92,8 +92,7 @@ class PostsDetail extends Component {
                 </Badge>
               </span>
               <span>
-                <Badge>
-                  {/* {this.state.count} Comments */}
+                <Badge>                  
                   {this.props.comments.length} Comment
                 </Badge>
               </span>
