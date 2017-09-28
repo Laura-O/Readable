@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -11,7 +12,7 @@ import {
   CardTitle,
 } from 'reactstrap';
 import Fontawesome from 'react-fontawesome';
-import {fetchPost, fetchCommentsCount, votePost, deletePost} from '../actions';
+import {fetchPost, fetchPostComments, fetchCommentsCount, votePost, deletePost} from '../actions';
 import Comments from './Comments';
 import NotFound from './NotFound';
 
@@ -23,6 +24,7 @@ class PostsDetail extends Component {
 
   componentWillMount() {
     this.props.fetchPost(this.props.match.params.id);
+    this.props.fetchPostComments(this.props.match.params.id);
     this.props.fetchCommentsCount(this.props.match.params.id, data => {
       this.setState({count: data.length});
     });
@@ -34,7 +36,7 @@ class PostsDetail extends Component {
     });
   }
 
-  render() {
+  render() {    
     const {post, votePost} = this.props;
     return !post
       ? <NotFound />
@@ -91,7 +93,8 @@ class PostsDetail extends Component {
               </span>
               <span>
                 <Badge>
-                  {this.state.count} Comments
+                  {/* {this.state.count} Comments */}
+                  {this.props.comments.length} Comment
                 </Badge>
               </span>
               <span>
@@ -117,11 +120,14 @@ class PostsDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {post: state.posts[ownProps.match.params.id], count: state.comments};
+  const comments = _.filter(state.comments, comment => !comment.deleted);
+  return {post: state.posts[ownProps.match.params.id],
+    comments};
 }
 
 export default connect(mapStateToProps, {
   fetchPost,
+  fetchPostComments,
   fetchCommentsCount,
   deletePost,
   votePost,

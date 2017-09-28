@@ -22,6 +22,7 @@ class Comments extends Component {
 
   renderComments() {
     const {voteComment, comments, postId} = this.props;
+    
     if (comments) {
       return _.map(comments, (comment, id) => {
         return (
