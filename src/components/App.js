@@ -24,10 +24,10 @@ class App extends Component {
 						<Route exact path="/posts/new" component={PostsCreate} />
 						<Route
 							exact
-							path="/posts/edit/:id"
+							path="/:category/edit/:id"
 							children={props => <PostsEdit {...props} />}
 						/>
-						<Route exact path="/posts/:id" component={PostsDetail} />
+						<Route exact path="/:category/:id" component={PostsDetail} />
 						<Route
 							path="/:category/:id/comments/new"
 							component={CommentsCreate}

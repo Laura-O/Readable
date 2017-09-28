@@ -40,10 +40,10 @@ class PostsEdit extends Component {
 	}
 
 	onSubmit(values) {
-		const {editPost, match: {params: {id}}, history} = this.props;
+		const {editPost, match: {params: {id, category}}, history} = this.props;
 
 		editPost(id, values, () => {
-			history.push('/posts/' + id);
+			history.push(`/${category}/${id}`);
 		});
 	}
 
@@ -56,7 +56,7 @@ class PostsEdit extends Component {
 				<Button type="submit" color="primary">
 					Update
 				</Button>
-				<Link to={"/posts/" + post.id} className="btn btn-danger">
+				<Link to={"/" + post.category + "/" + post.id} className="btn btn-danger">
 					Cancel
 				</Link>
 			</form>

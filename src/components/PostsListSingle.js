@@ -28,7 +28,6 @@ class PostsListSingle extends Component {
 
 	deleteButtonPress(id) {
 		this.props.deletePost(id, () => {});
-		console.log(this.props);
 	}
 
 	render() {
@@ -57,7 +56,7 @@ class PostsListSingle extends Component {
 						<CardTitle><Link to={'posts/' + post.id}>{post.title}</Link></CardTitle>
 						<CardText>
 							{post.body}
-							<a href={'posts/' + post.id}>
+							<a href={post.category + '/' + post.id}>
 								<Button size="sm" color="link">
 									Read more
 								</Button>
@@ -68,7 +67,7 @@ class PostsListSingle extends Component {
 								</small>
 							</span>
 							<span className="postButtons">
-								<Link to={`posts/edit/${post.id}`}>
+								<Link to={`/${post.category}/edit/${post.id}`}>
 									<Button color="warning" size="sm">
 										Edit
 									</Button>
